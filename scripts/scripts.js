@@ -14,19 +14,9 @@ const dollarChartDash = new Chart(dollarChart, {
 	},
 });
 
-setInterval(() => apiConnect(), 5000);
-
-async function apiConnect() {
-	const conn = await fetch("https://economia.awesomeapi.com.br/json/last/USD-BRL");
-	let time = generateTime();
-	let value = await conn.json().USDBRL.ask;
-	addData(dollarChartDash, time, value);
-	printQuotation("USD", value);
-};
-
 function generateTime() {
-	let date = new Date();
-	let time = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+	const date = new Date();
+	const time = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
 
 	return time;
 };
@@ -38,3 +28,12 @@ function addData(dash, subtitles, data) {
 	});
 	dash.update();
 };
+
+const workerDollar = new Worker("./scripts/workers/workerDollar.js");
+workerDollar.postMessage("usd");
+workerDollar.addEventListener("message", event => {
+	const time = generateTime();
+	const value = event.data.ask;
+	printQuotation("USD", value);
+	addData(dollarChartDash, time, value);
+});
