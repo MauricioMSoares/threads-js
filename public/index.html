@@ -8,7 +8,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./styles/styles.css">
+  <link rel="stylesheet" href="./styles/cabecalho.css">
+  <link rel="stylesheet" href="./styles/grafico.css">
+  <link rel="stylesheet" href="./styles/sidebar.css">
+  <link rel="stylesheet" href="./styles/rodape.css">
 </head>
 
 <body class="container">
@@ -46,12 +50,28 @@
       </div>
     </article>
 
+    <article class="dadosIene">
+      <div class="grafico">
+        <div class="grafico__titulo">
+          <span class="grafico__ilustracao-iene"></span>
+          <h2>Variação da moeda desde o login</h2>
+        </div>
+        <canvas id="yenChart"></canvas>
+      </div>
+
+      <div class="investimentos">
+        <h2>Valores da moeda</h2>
+        <ul class="investimentos__lista" id="iene" data-lista>
+        </ul>
+      </div>
+    </article>
+
     <footer class="rodape">
       <p>Dashboard - Desenvolvido por Alura</p>
     </footer>
   </main>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="./scripts.js" type="module"></script>
+  <script src="./scripts/scripts.js" type="module"></script>
 </body>
 
 </html>
