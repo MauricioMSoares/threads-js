@@ -1,4 +1,4 @@
-import printQuotation from "./printQuotation";
+import selectQuotation from "./printQuotation";
 
 window.addEventListener('DOMContentLoaded', (event) => {
 	const dollarChart = document.getElementById("dollarChart");
@@ -35,7 +35,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
 	workerDollar.addEventListener("message", event => {
 		const time = generateTime();
 		const value = event.data.ask;
-		printQuotation("USD", value);
+		selectQuotation("USD", value);
 		addData(dollarChartDash, time, value);
 	});
 
@@ -57,7 +57,29 @@ window.addEventListener('DOMContentLoaded', (event) => {
 	workerYen.addEventListener("message", event => {
 		const time = generateTime();
 		const value = event.data.ask;
-		printQuotation("JPY", value);
+		selectQuotation("JPY", value);
 		addData(yenChartDash, time, value);
 	});
+
+	const wonChart = document.getElementById("wonChart");
+	const wonChartDash = new Chart(wonChart, {
+		type: 'line',
+		data: {
+			labels: [],
+			datasets: [{
+				label: 'Won',
+				data: [],
+				borderWidth: 1
+			}]
+		}
+	});
+
+	const workerWon = new Worker("./scripts/workers/workerWon.js");
+	workerWon.postMessage("won");
+	workerWon.addEventListener("message", event => {
+		const time = generateTime();
+		const value = event.data.ask;
+		selectQuotation("WON", value);
+		addData(wonChartDash, time, value);
+	})
 });

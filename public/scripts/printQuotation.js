@@ -1,5 +1,13 @@
 const list = document.querySelector("[data-lista]");
 
+function selectQuotation(name, value) {
+  list.forEach((selectedList) => {
+    if (selectedList.id == name) {
+      printQuotation(selectedList, name, value);
+    }
+  })
+}
+
 function printQuotation(quotation, value) {
   list.innerHTML = "";
 
@@ -10,4 +18,4 @@ function printQuotation(quotation, value) {
   };
 };
 
-export default printQuotation;
+export default selectQuotation;
